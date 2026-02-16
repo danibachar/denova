@@ -6,12 +6,6 @@ on:
       - main
     paths:
       - "web/landing-pages/**"
-  workflow_dispatch:
-    inputs:
-      ref:
-        description: "Branch or PR ref to deploy (e.g. main, my-branch)"
-        required: false
-        default: "main"
 
 jobs:
   deploy:
@@ -21,8 +15,6 @@ jobs:
       deployments: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.ref || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

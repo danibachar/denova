@@ -24,7 +24,7 @@ export function StepScope({
       </p>
       <div>
         <label htmlFor="scope" className="block text-sm font-medium">
-          Project details <span className="text-muted-foreground">(required)</span>
+          Project details <span className="text-muted-foreground"></span>
         </label>
         <textarea
           id="scope"
@@ -32,7 +32,7 @@ export function StepScope({
           onChange={(e) => onChange(e.target.value)}
           placeholder="e.g. 3 bedrooms, living room, hallway. Timeline or special requests."
           rows={4}
-          required
+          // required
           className="mt-1 w-full resize-y rounded-lg border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
           aria-invalid={!!error}
           aria-describedby={error ? "scope-error" : undefined}

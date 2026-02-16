@@ -9,6 +9,7 @@ interface StepProjectTypeProps {
 const OPTIONS: { value: ProjectType; label: string; sublabel: string }[] = [
   { value: "paint", label: "Paint", sublabel: "Interior, exterior, commercial" },
   { value: "floor", label: "Floor", sublabel: "Hardwood, tile, laminate" },
+  { value: "other" as ProjectType, label: "Other", sublabel: "Other" },
 ];
 
 export function StepProjectType({ value, onChange, onNext }: StepProjectTypeProps) {

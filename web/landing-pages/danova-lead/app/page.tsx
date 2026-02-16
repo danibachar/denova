@@ -1,18 +1,15 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Progress } from "@/components/Progress";
-import { StepProjectType } from "@/components/StepProjectType";
-import {
-  StepAddress,
-  isValidZip,
-} from "@/components/StepAddress";
-import { StepPersonal } from "@/components/StepPersonal";
-import { StepScope } from "@/components/StepScope";
-import type { FormState, LeadPayload, UtmParams } from "./types";
-import { TOTAL_STEPS } from "./types";
+import { isValidZip } from "@/components/StepAddress";
+import type { FormState, LeadPayload, ProjectType, UtmParams } from "./types";
 
 const MAIN_SITE_URL = "https://danovarenovations.com";
+
+const PROJECT_OPTIONS: { value: ProjectType; label: string; sublabel: string }[] = [
+  { value: "paint", label: "Paint", sublabel: "Interior, exterior, commercial" },
+  { value: "floor", label: "Floor", sublabel: "Hardwood, tile, laminate" },
+];
 
 function getUtmFromUrl(): UtmParams {
   if (typeof window === "undefined") return {};
@@ -35,7 +32,6 @@ function isFloridaZip(zip: string): boolean {
 
 function getInitialState(): FormState {
   return {
-    step: 1,
     projectType: "",
     zip: "",
     addressOptional: "",
@@ -47,17 +43,20 @@ function getInitialState(): FormState {
   };
 }
 
+function isRequiredFieldsValid(form: FormState): boolean {
+  if (!form.projectType) return false;
+  if (!isValidZip(form.zip)) return false;
+  if (!form.name.trim()) return false;
+  const phoneDigits = form.phone.replace(/\D/g, "");
+  if (phoneDigits.length < 10) return false;
+  return true;
+}
+
 export default function LeadPage() {
   const [form, setForm] = useState<FormState>(getInitialState);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
-  const [addressError, setAddressError] = useState<string>("");
-  const [personalErrors, setPersonalErrors] = useState<{
-    name?: string;
-    phone?: string;
-  }>({});
-  const [scopeError, setScopeError] = useState<string>("");
 
   const update = useCallback(<K extends keyof FormState>(
     key: K,
@@ -66,53 +65,17 @@ export default function LeadPage() {
     setForm((prev) => ({ ...prev, [key]: value }));
   }, []);
 
-  const goNext = useCallback(() => {
-    setAddressError("");
-    setPersonalErrors({});
-    setScopeError("");
-    setForm((prev) => ({ ...prev, step: Math.min(prev.step + 1, TOTAL_STEPS) }));
-  }, []);
-
-  const goBack = useCallback(() => {
-    setForm((prev) => ({ ...prev, step: Math.max(prev.step - 1, 1) }));
-  }, []);
-
-  const handleStep1Next = useCallback(() => {
-    if (!form.projectType) return;
-    goNext();
-  }, [form.projectType, goNext]);
-
-  const handleStep2Next = useCallback(() => {
-    if (!isValidZip(form.zip)) {
-      setAddressError("Please enter a valid 5-digit zip code.");
-      return;
-    }
-    setAddressError("");
-    goNext();
-  }, [form.zip, goNext]);
-
-  const handleStep3Next = useCallback(() => {
-    const name = form.name.trim();
-    const phone = form.phone.trim().replace(/\D/g, "");
-    const err: { name?: string; phone?: string } = {};
-    if (!name) err.name = "Name is required.";
-    if (phone.length < 10) err.phone = "Please enter a valid phone number.";
-    setPersonalErrors(err);
-    if (Object.keys(err).length > 0) return;
-    goNext();
-  }, [form.name, form.phone, goNext]);
-
   const buildPayload = useCallback((): LeadPayload => {
     const payload: LeadPayload = {
       projectType: form.projectType as "paint" | "floor",
       zip: form.zip.trim(),
       name: form.name.trim(),
       phone: form.phone.trim(),
-      scope: form.scope.trim(),
     };
     if (form.addressOptional.trim())
       payload.addressOptional = form.addressOptional.trim();
     if (form.email.trim()) payload.email = form.email.trim();
+    if (form.scope.trim()) payload.scope = form.scope.trim();
     if (
       form.utm &&
       (form.utm.utm_source || form.utm.utm_medium || form.utm.utm_campaign)
@@ -121,19 +84,19 @@ export default function LeadPage() {
     return payload;
   }, [form]);
 
-  const handleSubmit = useCallback(() => {
-    if (!form.scope.trim()) {
-      setScopeError("Please describe your project.");
-      return;
-    }
-    setScopeError("");
-    setStatus("sending");
-    const payload = buildPayload();
-    console.log("Lead payload:", payload);
-    setTimeout(() => {
-      setStatus("sent");
-    }, 600);
-  }, [form.scope, buildPayload]);
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!isRequiredFieldsValid(form)) return;
+      setStatus("sending");
+      const payload = buildPayload();
+      console.log("Lead payload:", payload);
+      setTimeout(() => setStatus("sent"), 600);
+    },
+    [form, buildPayload]
+  );
+
+  const canSubmit = isRequiredFieldsValid(form) && status !== "sending";
 
   if (status === "sent") {
     return (
@@ -156,13 +119,6 @@ export default function LeadPage() {
     );
   }
 
-  const stepTitles = [
-    "What type of project?",
-    "Where are you located?",
-    "How can we reach you?",
-    "Tell us about your project",
-  ];
-
   return (
     <main className="mx-auto min-h-screen max-w-lg px-4 py-12">
       <div className="mb-8 text-center">
@@ -174,65 +130,157 @@ export default function LeadPage() {
         </p>
       </div>
 
-      <div className="mb-8">
-        <Progress current={form.step} />
-      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-8 rounded-lg border border-border bg-background p-6"
+      >
+        {/* Project type - required */}
+        <fieldset>
+          <legend className="text-lg font-medium">
+            Project type <span className="text-muted-foreground">(required)</span>
+          </legend>
+          <p className="mt-1 text-sm text-muted-foreground">
+            What type of project do you have in mind?
+          </p>
+          <div className="mt-3 space-y-3">
+            {PROJECT_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => update("projectType", opt.value)}
+                className="flex w-full flex-col items-start rounded-lg border border-border bg-background px-4 py-3 text-left transition-colors hover:border-primary/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+                aria-pressed={form.projectType === opt.value}
+              >
+                <span className="font-medium">{opt.label}</span>
+                <span className="text-sm text-muted-foreground">{opt.sublabel}</span>
+              </button>
+            ))}
+          </div>
+        </fieldset>
 
-      <section className="rounded-lg border border-border bg-background p-6">
-        <h2 className="mb-4 text-lg font-medium">
-          {stepTitles[form.step - 1]}
-        </h2>
+        {/* Address - zip required */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-medium">
+            Location <span className="text-muted-foreground">(required)</span>
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Where is your project? We serve Fort Lauderdale, Miami, and surrounding areas.
+          </p>
+          <div>
+            <label htmlFor="zip" className="block text-sm font-medium">
+              Zip code <span className="text-muted-foreground">(required)</span>
+            </label>
+            <input
+              id="zip"
+              type="text"
+              inputMode="numeric"
+              maxLength={5}
+              value={form.zip}
+              onChange={(e) =>
+                update("zip", e.target.value.replace(/\D/g, "").slice(0, 5))
+              }
+              placeholder="33001"
+              required
+              className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+            {isValidZip(form.zip) && !isFloridaZip(form.zip) && (
+              <p className="mt-1 text-sm text-muted-foreground">
+                We primarily serve South Florida. We&apos;ll still get in touch if we can help.
+              </p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="addressOptional" className="block text-sm font-medium">
+              Full address or city <span className="text-muted-foreground">(optional)</span>
+            </label>
+            <input
+              id="addressOptional"
+              type="text"
+              value={form.addressOptional}
+              onChange={(e) => update("addressOptional", e.target.value)}
+              placeholder="e.g. Fort Lauderdale, FL"
+              className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+        </div>
 
-        {form.step === 1 && (
-          <StepProjectType
-            value={form.projectType}
-            onChange={(v) => update("projectType", v)}
-            onNext={handleStep1Next}
+        {/* Personal - name and phone required */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-medium">
+            Contact <span className="text-muted-foreground">(required)</span>
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            How can we reach you? We&apos;ll call or email within 24 hours.
+          </p>
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium">
+              Name <span className="text-muted-foreground">(required)</span>
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={form.name}
+              onChange={(e) => update("name", e.target.value)}
+              placeholder="Your name"
+              required
+              className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium">
+              Phone <span className="text-muted-foreground">(required)</span>
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              value={form.phone}
+              onChange={(e) => update("phone", e.target.value)}
+              placeholder="(555) 555-5555"
+              required
+              className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium">
+              Email <span className="text-muted-foreground">(optional)</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={form.email}
+              onChange={(e) => update("email", e.target.value)}
+              placeholder="your@email.com"
+              className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+        </div>
+
+        {/* Scope - optional */}
+        <div>
+          <label htmlFor="scope" className="block text-lg font-medium">
+            Project details <span className="text-muted-foreground">(optional)</span>
+          </label>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Tell us about your project so we can prepare an accurate quote.
+          </p>
+          <textarea
+            id="scope"
+            value={form.scope}
+            onChange={(e) => update("scope", e.target.value)}
+            placeholder="e.g. 3 bedrooms, living room, hallway. Timeline or special requests."
+            rows={4}
+            className="mt-2 w-full resize-y rounded-lg border border-input bg-background px-3 py-2 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring"
           />
-        )}
+        </div>
 
-        {form.step === 2 && (
-          <StepAddress
-            zip={form.zip}
-            addressOptional={form.addressOptional}
-            onZipChange={(v) => update("zip", v)}
-            onAddressOptionalChange={(v) => update("addressOptional", v)}
-            onNext={handleStep2Next}
-            onBack={goBack}
-            error={addressError || undefined}
-            hint={
-              isValidZip(form.zip) && !isFloridaZip(form.zip)
-                ? "We primarily serve South Florida. We'll still get in touch if we can help."
-                : undefined
-            }
-          />
-        )}
-
-        {form.step === 3 && (
-          <StepPersonal
-            name={form.name}
-            phone={form.phone}
-            email={form.email}
-            onNameChange={(v) => update("name", v)}
-            onPhoneChange={(v) => update("phone", v)}
-            onEmailChange={(v) => update("email", v)}
-            onNext={handleStep3Next}
-            onBack={goBack}
-            errors={personalErrors}
-          />
-        )}
-
-        {form.step === 4 && (
-          <StepScope
-            scope={form.scope}
-            onChange={(v) => update("scope", v)}
-            onSubmit={handleSubmit}
-            onBack={goBack}
-            isSubmitting={status === "sending"}
-            error={scopeError || undefined}
-          />
-        )}
-      </section>
+        <button
+          type="submit"
+          disabled={!canSubmit}
+          className="w-full rounded-lg bg-primary px-4 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          {status === "sending" ? "Submitting..." : "Get my quote"}
+        </button>
+      </form>
     </main>
   );
 }

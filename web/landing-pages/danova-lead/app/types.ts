@@ -1,4 +1,4 @@
-export type ProjectType = "paint" | "floor" | "";
+export type ProjectType = "paint" | "floor" | "other" | "";
 
 export interface UtmParams {
   utm_source?: string;
@@ -13,12 +13,11 @@ export interface LeadPayload {
   name: string;
   phone: string;
   email?: string;
-  scope: string;
+  scope?: string;
   utm?: UtmParams;
 }
 
 export interface FormState {
-  step: number;
   projectType: ProjectType;
   zip: string;
   addressOptional: string;
@@ -28,5 +27,3 @@ export interface FormState {
   scope: string;
   utm: UtmParams;
 }
-
-export const TOTAL_STEPS = 4;

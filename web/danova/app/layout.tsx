@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LocalBusinessSchema } from "@/components/shared/StructuredData";
+import { GoogleAnalyticsProvider } from "@danova/analytics";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -61,6 +62,7 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased`}
       >
+        <GoogleAnalyticsProvider trackPageViews />
         <LocalBusinessSchema />
         <Header />
         <main className="min-h-screen">{children}</main>

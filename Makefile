@@ -1,15 +1,18 @@
-.PHONY: dev dev-install test prod prod-build prod-start clean
+.PHONY: dev dev-install dev-all test prod prod-build prod-start clean
 .PHONY: dev-landing dev-install-landing test-landing prod-landing prod-build-landing deploy-landing clean-landing
 .PHONY: dev-danova dev-install-danova test-danova prod-danova prod-build-danova deploy-danova clean-danova
 
 WEB_DANOVA := web/danova
 WEB_LANDING := web/landing-pages/danova-lead
+PORT_DANOVA := 3000
+PORT_LANDING := 3002
 
 # --- Danova (main site): web/danova ---
+# Hot reload (Fast Refresh) is built-in with next dev
 
 dev: dev-danova
 dev-danova:
-	cd $(WEB_DANOVA) && npm run dev
+	cd $(WEB_DANOVA) && npx next dev -p $(PORT_DANOVA)
 
 dev-install: dev-install-danova
 dev-install-danova:
@@ -50,7 +53,17 @@ clean-danova:
 # --- Landing page: web/landing-pages/danova-lead ---
 
 dev-landing:
-	cd $(WEB_LANDING) && npm run dev
+	cd $(WEB_LANDING) && npx next dev -p $(PORT_LANDING)
+
+# --- Run both sites with hot reload (Danova :3000, Landing :3001) ---
+# For Docker/WSL if hot reload doesn't work: make dev-all POLLING=1
+
+dev-all:
+	@echo "Starting Danova (localhost:$(PORT_DANOVA)) and Landing (localhost:$(PORT_LANDING))..."
+	@if [ "$(POLLING)" = "1" ]; then export WATCHPACK_POLLING=1; fi; \
+	cd $(WEB_DANOVA) && npx next dev -p $(PORT_DANOVA) & \
+	cd $(WEB_LANDING) && npx next dev -p $(PORT_LANDING) & \
+	wait
 
 dev-install-landing:
 	cd $(WEB_LANDING) && npm install
