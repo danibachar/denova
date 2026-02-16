@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch or PR ref to deploy (e.g. main, my-branch, refs/pull/123/head)"
+        required: false
+        default: "main"
 
 jobs:
   deploy:
@@ -13,6 +19,9 @@ jobs:
       deployments: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+          lfs: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -32,7 +41,7 @@ jobs:
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          apiToken: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web/danova
           command: pages deploy out --project-name=danova-web
