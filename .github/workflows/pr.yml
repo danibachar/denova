@@ -71,7 +71,7 @@ jobs:
 
       - name: Typecheck
         working-directory: web/apps/danova
-        run: npx tsc --noEmit
+        run: npm run typecheck
 
       - name: Test
         working-directory: web/apps/danova
@@ -105,7 +105,7 @@ jobs:
 
       - name: Typecheck
         working-directory: web/apps/danova-lead
-        run: npx tsc --noEmit
+        run: npm run typecheck
 
       - name: Build
         working-directory: web/apps/danova-lead

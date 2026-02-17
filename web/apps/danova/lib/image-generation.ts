@@ -9,7 +9,6 @@
  */
 
 const NANO_BANANA_API_URL = "https://api.nanobananaapi.dev/v1/images/generations";
-const GOOGLE_AI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent";
 
 export async function generateImageWithNanoBanana(
   prompt: string,

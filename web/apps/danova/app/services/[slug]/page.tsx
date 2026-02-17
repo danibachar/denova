@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceDetailTemplate } from "@/components/shared/ServiceDetailTemplate";
 import { SERVICE_DETAILS } from "@/lib/content/services";
-import { SITE } from "@/lib/constants";
 
 const SLUGS = Object.keys(SERVICE_DETAILS);
 

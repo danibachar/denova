@@ -7,7 +7,6 @@ interface LocalBusinessSchemaProps {
 }
 
 export function LocalBusinessSchema({
-  pageType = "default",
   serviceName,
   serviceDescription,
 }: LocalBusinessSchemaProps) {
