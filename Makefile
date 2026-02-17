@@ -6,7 +6,7 @@
 WEB_DANOVA := web/apps/danova
 WEB_LANDING := web/apps/danova-lead
 MODULE_ANALYTICS := web/modules/analytics
-PORT_DANOVA := 3000
+PORT_DANOVA := 3003
 PORT_LANDING := 3002
 
 # --- Danova (main site): web/apps/danova ---
@@ -14,7 +14,7 @@ PORT_LANDING := 3002
 
 dev: dev-danova
 dev-danova:
-	cd $(WEB_DANOVA) && npx next dev -p $(PORT_DANOVA)
+	cd $(WEB_DANOVA) && npx next dev --webpack -p $(PORT_DANOVA)
 
 dev-install: dev-install-danova
 dev-install-danova:
@@ -64,7 +64,7 @@ clean-danova:
 # --- Landing page: web/apps/danova-lead ---
 
 dev-landing:
-	cd $(WEB_LANDING) && npx next dev -p $(PORT_LANDING)
+	cd $(WEB_LANDING) && npx next dev --webpack -p $(PORT_LANDING)
 
 # --- Run both sites with hot reload (Danova :3000, Landing :3001) ---
 # For Docker/WSL if hot reload doesn't work: make dev-all POLLING=1
@@ -72,8 +72,8 @@ dev-landing:
 dev-all:
 	@echo "Starting Danova (localhost:$(PORT_DANOVA)) and Landing (localhost:$(PORT_LANDING))..."
 	@if [ "$(POLLING)" = "1" ]; then export WATCHPACK_POLLING=1; fi; \
-	cd $(WEB_DANOVA) && npx next dev -p $(PORT_DANOVA) & \
-	cd $(WEB_LANDING) && npx next dev -p $(PORT_LANDING) & \
+	cd $(WEB_DANOVA) && npx next dev --webpack -p $(PORT_DANOVA) & \
+	cd $(WEB_LANDING) && npx next dev --webpack -p $(PORT_LANDING) & \
 	wait
 
 dev-install-landing:
