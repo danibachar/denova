@@ -37,7 +37,6 @@ jobs:
             web/modules/analytics/package-lock.json
             web/apps/danova/package-lock.json
             web/apps/danova-lead/package-lock.json
-          cache-dependency-path: ${{ matrix.lock }}
 
       - name: Install analytics dependencies
         if: matrix.dir != 'web/modules/analytics'
