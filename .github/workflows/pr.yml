@@ -188,7 +188,7 @@ jobs:
           make prod-build-danova
           make prod-build-landing
 
-  deploy:
+  deploy-danova:
     # if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
@@ -204,10 +204,7 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-
-      - name: Install analytics dependencies
-        working-directory: web/modules/analytics
-        run: npm ci
+          cache-dependency-path: web/apps/danova/package-lock.json
 
       - name: Install and build danova
         working-directory: web/apps/danova
@@ -224,11 +221,31 @@ jobs:
           command: pages deploy out --project-name=danova-web
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install and build danova-lead
+  deploy-landing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/apps/danova-lead/package-lock.json 
+
+      - name: Install analytics dependencies
+        working-directory: web/modules/analytics
+        run: npm ci
+
+      - name: Install dependencies
         working-directory: web/apps/danova-lead
-        run: |
-          npm ci
-          npm run build
+        run: npm ci
+
+      - name: Build
+        working-directory: web/apps/danova-lead
+        run: npm run build
 
       - name: Deploy danova-lead to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
@@ -238,3 +255,5 @@ jobs:
           workingDirectory: web/apps/danova-lead
           command: pages deploy out --project-name=danova-lead
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+
