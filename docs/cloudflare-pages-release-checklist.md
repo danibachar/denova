@@ -8,6 +8,9 @@ Use this checklist for every production deployment.
 - [ ] Build commands are reproducible locally
 - [ ] `danova-lead` static output exists after build (`web/apps/danova-lead/out/index.html`)
 - [ ] Cloudflare secrets are present and named correctly
+- [ ] Repo variables are set:
+  - `CF_PAGES_PROJECT_DANOVA`
+  - `CF_PAGES_PROJECT_LEAD`
 - [ ] No server-only features introduced into static-export app
 
 ## 2) Pre-deploy checks
