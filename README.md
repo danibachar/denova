@@ -37,3 +37,7 @@ npm start
 - Structured data (LocalBusiness, FAQPage, Article)
 - Sitemap at `/sitemap.xml`
 - robots.txt allows Googlebot and OAI-SearchBot
+
+## Deployment Ops
+
+- Cloudflare Pages release checklist: `docs/cloudflare-pages-release-checklist.md`
