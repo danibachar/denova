@@ -43,7 +43,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Your flooring choice affects comfort, durability, resale value, and daily maintenance. Here's a practical guide to help you choose.",
     date: "2025-10-10",
     author: "Danova Renovations",
-    image: "/images/blog/flooring-guide.jpg",
+    image: "/images/blog/flooring-service.jpg",
   },
   {
     slug: "preparing-your-home-for-painters",

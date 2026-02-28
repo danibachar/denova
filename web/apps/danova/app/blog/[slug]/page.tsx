@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { BLOG_POSTS } from "@/lib/content/blog";
 import { BLOG_POST_CONTENT } from "@/lib/content/blog-posts";
 import { ArticleSchema } from "@/components/shared/StructuredData";
 import { SITE } from "@/lib/constants";
@@ -17,12 +19,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = BLOG_POST_CONTENT[slug];
   if (!post) return {};
+  const postMeta = BLOG_POSTS.find((item) => item.slug === slug);
   return {
     title: post.title,
     description: post.excerpt,
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      images: postMeta?.image ? [`${SITE.url}${postMeta.image}`] : undefined,
     },
   };
 }
@@ -53,6 +57,7 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const post = BLOG_POST_CONTENT[slug];
   if (!post) notFound();
+  const postMeta = BLOG_POSTS.find((item) => item.slug === slug);
 
   return (
     <article className="px-4 py-16 md:py-24">
@@ -86,6 +91,17 @@ export default async function BlogPostPage({
           </h1>
           <p className="mt-2 text-muted-foreground">By {post.author}</p>
         </header>
+        {postMeta?.image ? (
+          <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl bg-muted">
+            <Image
+              src={postMeta.image}
+              alt={post.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 700px"
+            />
+          </div>
+        ) : null}
         <div className="prose prose-neutral mt-10 dark:prose-invert">
           {renderContent(post.content)}
         </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { BLOG_POSTS } from "@/lib/content/blog";
 
@@ -22,8 +23,20 @@ export default function BlogPage() {
           {BLOG_POSTS.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <Card className="h-full overflow-hidden transition-colors hover:border-primary/50">
-                <div className="flex aspect-video items-center justify-center bg-muted text-muted-foreground">
-                  <span className="text-5xl">📝</span>
+                <div className="relative aspect-video bg-muted">
+                  {post.image ? (
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-muted-foreground">
+                      <span className="text-5xl">📝</span>
+                    </div>
+                  )}
                 </div>
                 <CardContent className="p-6">
                   <time
