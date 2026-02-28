@@ -36,6 +36,7 @@ npm run build
 npm start
 ```
 
-## Deploy on Vercel
+## Static deploy notes (Cloudflare Pages)
 
-Deploy via [Vercel](https://vercel.com) or any Next.js-compatible host.
+- This app uses `output: "export"` and deploys static output from `out/`.
+- Cache behavior is controlled via `public/_headers` (copied to `out/_headers` on build).
