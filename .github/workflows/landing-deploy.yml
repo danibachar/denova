@@ -41,5 +41,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web/apps/danova-lead
-          command: pages deploy out --project-name=${{ vars.CF_PAGES_PROJECT_LEAD || 'danova-lead' }}
+          command: pages deploy out --project-name=${{ vars.CF_PAGES_PROJECT_LEAD }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
