@@ -4,9 +4,24 @@ on:
   push:
     branches:
       - main
+      - test
     paths:
       - "web/apps/danova-lead/**"
       - "web/modules/**"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch/tag/SHA to deploy (default: current branch)"
+        required: false
+        default: ""
+      target_branch:
+        description: "Cloudflare Pages branch target"
+        required: false
+        type: choice
+        options:
+          - main
+          - test
+        default: test
 
 jobs:
   deploy:
@@ -14,8 +29,13 @@ jobs:
     permissions:
       contents: read
       deployments: write
+    env:
+      SOURCE_REF: ${{ github.event.inputs.ref || github.ref }}
+      TARGET_BRANCH: ${{ github.event.inputs.target_branch || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SOURCE_REF }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -41,5 +61,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web/apps/danova-lead
-          command: pages deploy out --project-name=${{ vars.CF_PAGES_PROJECT_LEAD }}
+          command: pages deploy out --project-name=${{ vars.CF_PAGES_PROJECT_LEAD }} --branch=${{ env.TARGET_BRANCH }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
