@@ -2,8 +2,7 @@ name: PR
 
 on:
   pull_request:
-    paths:
-      - "web/**"
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       ref:
