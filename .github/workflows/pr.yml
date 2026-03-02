@@ -189,8 +189,6 @@ jobs:
           make prod-build-landing
 
   deploy-danova:
-    # if: github.event_name == 'workflow_dispatch'
-    # needs: [integration]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -229,8 +227,6 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-landing:
-    # if: github.event_name == 'workflow_dispatch'
-    # needs: [integration]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
