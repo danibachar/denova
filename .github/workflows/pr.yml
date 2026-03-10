@@ -226,7 +226,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web/apps/danova
           command: pages deploy out --project-name danova
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-landing:
     if: github.event_name == 'workflow_dispatch'
