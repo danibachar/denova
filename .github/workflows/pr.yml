@@ -190,7 +190,6 @@ jobs:
           make prod-build-landing
 
   deploy-danova:
-    # if: github.event_name == 'workflow_dispatch'
     needs: [integration]
     runs-on: ubuntu-latest
     permissions:
@@ -227,10 +226,8 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web/apps/danova
           command: pages deploy out --project-name danova
-          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-landing:
-    if: github.event_name == 'workflow_dispatch'
     needs: [integration]
     runs-on: ubuntu-latest
     steps:
@@ -263,7 +260,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_API_KEY }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web/apps/danova-lead
-          command: pages deploy out --project-name=${{ vars.CF_PAGES_PROJECT_LEAD }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy out --project-name danova-lead
 
 

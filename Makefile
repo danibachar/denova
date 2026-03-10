@@ -54,7 +54,7 @@ prod-start-danova:
 	cd $(WEB_DANOVA) && npm run start
 
 deploy-danova: prod-build-danova
-	cd $(WEB_DANOVA) && npx wrangler pages deploy out --project-name=danova-web
+	cd $(WEB_DANOVA) && npx wrangler pages deploy out --project-name danova
 
 clean: clean-danova
 clean-danova:
@@ -94,7 +94,7 @@ prod-build-landing:
 	cd $(WEB_LANDING) && npm run build
 
 deploy-landing: prod-build-landing
-	cd $(WEB_LANDING) && npx wrangler pages deploy out --project-name=danova-lead
+	cd $(WEB_LANDING) && npx wrangler pages deploy out --project-name danova-lead
 
 clean-landing:
 	rm -rf $(WEB_LANDING)/.next
