@@ -7,6 +7,7 @@ on:
     paths:
       - "web/apps/danova-lead/**"
       - "web/modules/**"
+      - ".github/workflows/**"
 
 jobs:
   deploy:
