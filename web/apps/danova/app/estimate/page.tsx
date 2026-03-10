@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ALL_SERVICES } from "@/lib/constants";
+import { ALL_SERVICES, CONTACT } from "@/lib/constants";
 
 export default function EstimatePage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
@@ -151,10 +151,10 @@ export default function EstimatePage() {
         <p className="mt-8 text-center text-sm text-muted-foreground">
           Or call us directly:{" "}
           <a
-            href="tel:9545550123"
+            href={`tel:${CONTACT.phoneRaw}`}
             className="font-medium text-primary hover:underline"
           >
-            (954) 555-0123
+            {CONTACT.phone}
           </a>
         </p>
       </div>

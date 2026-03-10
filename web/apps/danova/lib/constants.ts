@@ -7,8 +7,8 @@ export const SITE = {
 } as const;
 
 export const CONTACT = {
-  phone: "(954) 555-0123",
-  phoneRaw: "9545550123",
+  phone: "(754) 222-1485",
+  phoneRaw: "7542221485",
   email: "info@danovarenovations.com",
   address: {
     primary: "Fort Lauderdale, FL",

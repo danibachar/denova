@@ -78,7 +78,7 @@ export default function TermsPage() {
             <h2 className="font-serif text-xl font-semibold">6. Contact</h2>
             <p className="mt-4 text-muted-foreground">
               For questions about these Terms and Conditions, contact us at
-              info@danovarenovations.com or (954) 555-0123.
+              info@danovarenovations.com or (754) 222-1485.
             </p>
           </section>
         </div>

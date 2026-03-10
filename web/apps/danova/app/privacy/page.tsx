@@ -70,7 +70,7 @@ export default function PrivacyPage() {
             <h2 className="font-serif text-xl font-semibold">6. Contact Us</h2>
             <p className="mt-4 text-muted-foreground">
               If you have questions about this Privacy Policy, please contact us
-              at info@danovarenovations.com or call (954) 555-0123.
+              at info@danovarenovations.com or call (754) 222-1485.
             </p>
           </section>
         </div>
