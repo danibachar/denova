@@ -59,7 +59,7 @@ function buildEmailHtml(data: LeadData): string {
 export interface EmailEnv {
   GOOGLE_CLIENT_ID: string;
   GOOGLE_CLIENT_SECRET: string;
-  // GOOGLE_REFRESH_TOKEN: string;
+  GOOGLE_REFRESH_TOKEN: string;
 }
 
 export async function sendLeadEmail(
@@ -73,8 +73,8 @@ export async function sendLeadEmail(
     body: new URLSearchParams({
       client_id: env.GOOGLE_CLIENT_ID,
       client_secret: env.GOOGLE_CLIENT_SECRET,
-      // refresh_token: env.GOOGLE_REFRESH_TOKEN,
-      grant_type: "client_credentials",
+      refresh_token: env.GOOGLE_REFRESH_TOKEN,
+      grant_type: "refresh_token",
     }),
   });
   if (!tokenRes.ok) {
