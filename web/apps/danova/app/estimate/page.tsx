@@ -14,19 +14,29 @@ export default function EstimatePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formId = process.env.NEXT_PUBLIC_FORMSPREE_ESTIMATE_ID;
-    if (!formId) {
-      setStatus("error");
-      return;
-    }
     setStatus("sending");
     const form = e.currentTarget;
     const body = Object.fromEntries(new FormData(form).entries());
+    const apiUrl =
+      process.env.NEXT_PUBLIC_LEAD_API_URL || "https://danova-lead-api.workers.dev";
     try {
-      const res = await fetch(`https://formspree.io/f/${formId}`, {
+      const res = await fetch(`${apiUrl}/api/lead`, {
         method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          source: "estimate",
+          service: body.service,
+          scope: body.scope || undefined,
+          name: body.name,
+          email: body.email,
+          phone: body.phone,
+          address: body.address || undefined,
+          notes: body.notes || undefined,
+          lead_source: "danova-estimate",
+        }),
       });
       if (res.ok) setStatus("sent");
       else setStatus("error");

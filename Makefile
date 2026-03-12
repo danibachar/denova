@@ -1,13 +1,16 @@
 .PHONY: dev dev-install dev-all lint typecheck test prod prod-build prod-build-all prod-start clean
 .PHONY: dev-landing dev-install-landing test-landing prod-landing prod-build-landing deploy-landing clean-landing
 .PHONY: dev-danova dev-install-danova test-danova prod-danova prod-build-danova deploy-danova clean-danova
+.PHONY: dev-functions dev-install-functions deploy-functions
 .PHONY: test-analytics test-lint-analytics test-typecheck-analytics test-unit-analytics clean-analytics
 
 WEB_DANOVA := web/apps/danova
 WEB_LANDING := web/apps/danova-lead
+FUNCTIONS := functions
 MODULE_ANALYTICS := web/modules/analytics
 PORT_DANOVA := 3003
 PORT_LANDING := 3002
+PORT_FUNCTIONS := 8787
 
 # --- Danova (main site): web/apps/danova ---
 # Hot reload (Fast Refresh) is built-in with next dev
@@ -66,7 +69,7 @@ clean-danova:
 dev-landing:
 	cd $(WEB_LANDING) && npx next dev --webpack -p $(PORT_LANDING)
 
-# --- Run both sites with hot reload (Danova :3000, Landing :3001) ---
+# --- Run both sites with hot reload (Danova :$(PORT_DANOVA), Landing :$(PORT_LANDING)) ---
 # For Docker/WSL if hot reload doesn't work: make dev-all POLLING=1
 
 dev-all:
@@ -99,6 +102,20 @@ deploy-landing: prod-build-landing
 clean-landing:
 	rm -rf $(WEB_LANDING)/.next
 	@echo "Cleaned landing .next"
+
+# --- Lead API (Cloudflare Worker + Gmail API): functions/ ---
+# Local API: http://localhost:$(PORT_FUNCTIONS)/api/lead
+# Set NEXT_PUBLIC_LEAD_API_URL=http://localhost:$(PORT_FUNCTIONS) when running danova/landing
+# Secrets: wrangler secret put GOOGLE_CLIENT_ID (etc.) or .dev.vars for local
+
+dev-functions:
+	cd $(FUNCTIONS) && npx wrangler dev --port $(PORT_FUNCTIONS)
+
+dev-install-functions:
+	cd $(FUNCTIONS) && npm install
+
+deploy-functions:
+	cd $(FUNCTIONS) && npx wrangler deploy
 
 # --- Module: web/modules/analytics ---
 

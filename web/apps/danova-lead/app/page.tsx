@@ -85,13 +85,32 @@ export default function LeadPage() {
   }, [form]);
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!isRequiredFieldsValid(form)) return;
       setStatus("sending");
       const payload = buildPayload();
-      console.log("Lead payload:", payload);
-      setTimeout(() => setStatus("sent"), 600);
+      const baseUrl =
+        typeof window !== "undefined"
+          ? process.env.NEXT_PUBLIC_LEAD_API_URL || "https://danova-lead-api.workers.dev"
+          : "https://danova-lead-api.workers.dev";
+      try {
+        const res = await fetch(`${baseUrl}/api/lead`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...payload,
+            lead_source: "danova-lead",
+          }),
+        });
+        if (res.ok) setStatus("sent");
+        else setStatus("error");
+      } catch {
+        setStatus("error");
+      }
     },
     [form, buildPayload]
   );
@@ -273,6 +292,11 @@ export default function LeadPage() {
           />
         </div>
 
+        {status === "error" && (
+          <p className="text-sm text-destructive">
+            Something went wrong. Please try again.
+          </p>
+        )}
         <button
           type="submit"
           disabled={!canSubmit}

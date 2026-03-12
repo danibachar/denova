@@ -1,0 +1,27 @@
+name = "danova-lead-api"
+main = "src/index.ts"
+compatibility_date = "2025-03-10"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ALLOWED_ORIGINS = "https://danovapaints.com,https://danovafloors.com,https://danovarenovations.com,https://www.danovarenovations.com,https://danova-lead.pages.dev,http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:3003"
+
+# Secrets: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET (refresh token stored in KV)
+# Create KV: wrangler kv namespace create TOKEN_STORE
+
+[[kv_namespaces]]
+binding = "TOKEN_STORE"
+id = "2c3e46ed74bc43919b0a5febb7ac14ed"
+
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+[observability]
+enabled = true
+[observability.logs]
+invocation_logs = true

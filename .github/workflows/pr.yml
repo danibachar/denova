@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "web/**"
+      - "functions/**"
       - ".github/workflows/**"
 
 jobs:
@@ -85,6 +86,8 @@ jobs:
 
       - name: Build
         working-directory: web/apps/danova
+        env:
+          NEXT_PUBLIC_LEAD_API_URL: https://danova-lead-api.workers.dev
         run: npm run build
 
   test-danova-lead:
@@ -118,6 +121,8 @@ jobs:
 
       - name: Build
         working-directory: web/apps/danova-lead
+        env:
+          NEXT_PUBLIC_LEAD_API_URL: https://danova-lead-api.workers.dev
         run: npm run build
 
   test-analytics:
@@ -211,6 +216,8 @@ jobs:
 
       - name: Build
         working-directory: web/apps/danova
+        env:
+          NEXT_PUBLIC_LEAD_API_URL: ${{ secrets.LEAD_API_URL || 'https://danova-lead-api.workers.dev' }}
         run: npm run build
 
       - name: Deploy danova to Cloudflare Pages
@@ -246,6 +253,8 @@ jobs:
 
       - name: Build
         working-directory: web/apps/danova-lead
+        env:
+          NEXT_PUBLIC_LEAD_API_URL: ${{ secrets.LEAD_API_URL || 'https://danova-lead-api.workers.dev' }}
         run: npm run build
 
       - name: Deploy danova-lead to Cloudflare Pages

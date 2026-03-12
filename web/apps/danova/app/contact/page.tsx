@@ -14,19 +14,26 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formId = process.env.NEXT_PUBLIC_FORMSPREE_CONTACT_ID;
-    if (!formId) {
-      setStatus("error");
-      return;
-    }
     setStatus("sending");
     const form = e.currentTarget;
     const body = Object.fromEntries(new FormData(form).entries());
+    const apiUrl =
+      process.env.NEXT_PUBLIC_LEAD_API_URL || "https://danova-lead-api.workers.dev";
     try {
-      const res = await fetch(`https://formspree.io/f/${formId}`, {
+      const res = await fetch(`${apiUrl}/api/lead`, {
         method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          source: "contact",
+          name: body.name,
+          email: body.email,
+          phone: body.phone || undefined,
+          message: body.message,
+          lead_source: "danova-contact",
+        }),
       });
       if (res.ok) setStatus("sent");
       else setStatus("error");
