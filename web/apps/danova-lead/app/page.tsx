@@ -85,13 +85,38 @@ export default function LeadPage() {
   }, [form]);
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!isRequiredFieldsValid(form)) return;
+      const baseUrl = process.env.NEXT_PUBLIC_LEAD_API_URL?.trim();
+      if (!baseUrl) {
+        setStatus("error");
+        return;
+      }
       setStatus("sending");
       const payload = buildPayload();
-      console.log("Lead payload:", payload);
-      setTimeout(() => setStatus("sent"), 600);
+      const body = {
+        source: "lead" as const,
+        name: payload.name,
+        phone: payload.phone,
+        projectType: payload.projectType,
+        zip: payload.zip,
+        ...(payload.addressOptional && { addressOptional: payload.addressOptional }),
+        ...(payload.email && { email: payload.email }),
+        ...(payload.scope && { scope: payload.scope }),
+        ...(payload.utm && Object.keys(payload.utm).length > 0 && { utm: payload.utm }),
+      };
+      try {
+        const res = await fetch(`${baseUrl.replace(/\/$/, "")}/api/lead`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        if (res.ok) setStatus("sent");
+        else setStatus("error");
+      } catch {
+        setStatus("error");
+      }
     },
     [form, buildPayload]
   );
@@ -273,6 +298,11 @@ export default function LeadPage() {
           />
         </div>
 
+        {status === "error" && (
+          <p className="text-sm text-destructive">
+            Something went wrong. Please try again.
+          </p>
+        )}
         <button
           type="submit"
           disabled={!canSubmit}

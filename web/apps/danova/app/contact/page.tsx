@@ -14,18 +14,25 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formId = process.env.NEXT_PUBLIC_FORMSPREE_CONTACT_ID;
-    if (!formId) {
+    const baseUrl = process.env.NEXT_PUBLIC_LEAD_API_URL?.trim();
+    if (!baseUrl) {
       setStatus("error");
       return;
     }
     setStatus("sending");
     const form = e.currentTarget;
-    const body = Object.fromEntries(new FormData(form).entries());
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+    const body = {
+      source: "contact" as const,
+      name: (data.name ?? "").trim(),
+      email: (data.email ?? "").trim() || undefined,
+      phone: (data.phone ?? "").trim(),
+      message: (data.message ?? "").trim() || undefined,
+    };
     try {
-      const res = await fetch(`https://formspree.io/f/${formId}`, {
+      const res = await fetch(`${baseUrl.replace(/\/$/, "")}/api/lead`, {
         method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
       if (res.ok) setStatus("sent");
@@ -115,6 +122,7 @@ export default function ContactPage() {
                   id="phone"
                   name="phone"
                   type="tel"
+                  required
                   placeholder="(555) 555-5555"
                   className="mt-2"
                 />

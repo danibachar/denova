@@ -14,18 +14,28 @@ export default function EstimatePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formId = process.env.NEXT_PUBLIC_FORMSPREE_ESTIMATE_ID;
-    if (!formId) {
+    const baseUrl = process.env.NEXT_PUBLIC_LEAD_API_URL?.trim();
+    if (!baseUrl) {
       setStatus("error");
       return;
     }
     setStatus("sending");
     const form = e.currentTarget;
-    const body = Object.fromEntries(new FormData(form).entries());
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+    const body = {
+      source: "estimate" as const,
+      name: (data.name ?? "").trim(),
+      email: (data.email ?? "").trim() || undefined,
+      phone: (data.phone ?? "").trim(),
+      service: (data.service ?? "").trim() || undefined,
+      scope: (data.scope ?? "").trim() || undefined,
+      address: (data.address ?? "").trim() || undefined,
+      notes: (data.notes ?? "").trim() || undefined,
+    };
     try {
-      const res = await fetch(`https://formspree.io/f/${formId}`, {
+      const res = await fetch(`${baseUrl.replace(/\/$/, "")}/api/lead`, {
         method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
       if (res.ok) setStatus("sent");
