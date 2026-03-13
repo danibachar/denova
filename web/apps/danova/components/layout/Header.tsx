@@ -30,6 +30,7 @@ const navItems = [
     label: "Service Area",
     href: "/service-area",
   },
+  { label: "Projects", href: "/projects" },
   { label: "About Us", href: "/about" },
   { label: "Blog", href: "/blog" },
 ];
