@@ -33,7 +33,7 @@ export default function EstimatePage() {
       notes: (data.notes ?? "").trim() || undefined,
     };
     try {
-      const res = await fetch(`${baseUrl.replace(/\/$/, "")}/api/lead`, {
+      const res = await fetch(`${baseUrl.replace(/\/$/, "")}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

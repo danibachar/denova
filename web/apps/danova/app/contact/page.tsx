@@ -30,7 +30,7 @@ export default function ContactPage() {
       message: (data.message ?? "").trim() || undefined,
     };
     try {
-      const res = await fetch(`${baseUrl.replace(/\/$/, "")}/api/lead`, {
+      const res = await fetch(`${baseUrl}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

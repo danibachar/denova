@@ -107,7 +107,7 @@ export default function LeadPage() {
         ...(payload.utm && Object.keys(payload.utm).length > 0 && { utm: payload.utm }),
       };
       try {
-        const res = await fetch(`${baseUrl.replace(/\/$/, "")}/api/lead`, {
+        const res = await fetch(`${baseUrl}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
