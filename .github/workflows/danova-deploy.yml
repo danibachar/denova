@@ -36,6 +36,7 @@ jobs:
         working-directory: web/apps/danova
         env:
           NEXT_PUBLIC_LEAD_API_URL: ${{ vars.NEXT_PUBLIC_LEAD_API_URL }}
+          NEXT_PUBLIC_LEAD_API_KEY: ${{ secrets.LEAD_API_KEY }}
         run: npm run build
 
       - name: Deploy to Cloudflare Pages

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ALL_SERVICES, CONTACT } from "@/lib/constants";
+import { submitLead } from "@/lib/lead";
 
 export default function EstimatePage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
@@ -14,32 +15,21 @@ export default function EstimatePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const baseUrl = process.env.NEXT_PUBLIC_LEAD_API_URL?.trim();
-    if (!baseUrl) {
-      setStatus("error");
-      return;
-    }
     setStatus("sending");
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
-    const body = {
-      source: "estimate" as const,
-      name: (data.name ?? "").trim(),
-      email: (data.email ?? "").trim() || undefined,
-      phone: (data.phone ?? "").trim(),
-      service: (data.service ?? "").trim() || undefined,
-      scope: (data.scope ?? "").trim() || undefined,
-      address: (data.address ?? "").trim() || undefined,
-      notes: (data.notes ?? "").trim() || undefined,
-    };
     try {
-      const res = await fetch(`${baseUrl.replace(/\/$/, "")}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+      const ok = await submitLead({
+        source: "estimate",
+        name: (data.name ?? "").trim(),
+        phone: (data.phone ?? "").trim(),
+        email: (data.email ?? "").trim() || undefined,
+        service: (data.service ?? "").trim() || undefined,
+        scope: (data.scope ?? "").trim() || undefined,
+        address: (data.address ?? "").trim() || undefined,
+        notes: (data.notes ?? "").trim() || undefined,
       });
-      if (res.ok) setStatus("sent");
-      else setStatus("error");
+      setStatus(ok ? "sent" : "error");
     } catch {
       setStatus("error");
     }

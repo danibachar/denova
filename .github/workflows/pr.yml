@@ -87,6 +87,7 @@ jobs:
         working-directory: web/apps/danova
         env:
           NEXT_PUBLIC_LEAD_API_URL: ${{ vars.NEXT_PUBLIC_LEAD_API_URL }}
+          NEXT_PUBLIC_LEAD_API_KEY: ${{ secrets.LEAD_API_KEY }}
         run: npm run build
 
   test-danova-lead:
@@ -122,6 +123,7 @@ jobs:
         working-directory: web/apps/danova-lead
         env:
           NEXT_PUBLIC_LEAD_API_URL: ${{ vars.NEXT_PUBLIC_LEAD_API_URL }}
+          NEXT_PUBLIC_LEAD_API_KEY: ${{ secrets.LEAD_API_KEY }}
         run: npm run build
 
   test-analytics:
@@ -183,6 +185,7 @@ jobs:
       - name: Integration test
         env:
           NEXT_PUBLIC_LEAD_API_URL: ${{ vars.NEXT_PUBLIC_LEAD_API_URL }}
+          NEXT_PUBLIC_LEAD_API_KEY: ${{ secrets.LEAD_API_KEY }}
         run: |
           make lint
           make typecheck
@@ -219,6 +222,7 @@ jobs:
         working-directory: web/apps/danova
         env:
           NEXT_PUBLIC_LEAD_API_URL: ${{ vars.NEXT_PUBLIC_LEAD_API_URL }}
+          NEXT_PUBLIC_LEAD_API_KEY: ${{ secrets.LEAD_API_KEY }}
         run: npm run build
 
       - name: Deploy danova to Cloudflare Pages
@@ -256,6 +260,7 @@ jobs:
         working-directory: web/apps/danova-lead
         env:
           NEXT_PUBLIC_LEAD_API_URL: ${{ vars.NEXT_PUBLIC_LEAD_API_URL }}
+          NEXT_PUBLIC_LEAD_API_KEY: ${{ secrets.LEAD_API_KEY }}
         run: npm run build
 
       - name: Deploy danova-lead to Cloudflare Pages
