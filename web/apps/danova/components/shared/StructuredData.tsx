@@ -1,4 +1,4 @@
-import { SITE, CONTACT } from "@/lib/constants";
+import { SITE, CONTACT, CITIES } from "@/lib/constants";
 
 interface LocalBusinessSchemaProps {
   pageType?: "home" | "service" | "blog" | "default";
@@ -16,6 +16,7 @@ export function LocalBusinessSchema({
     name: SITE.name,
     description: SITE.description,
     url: SITE.url,
+    image: `${SITE.url}/images/hero-renovation.jpg`,
     telephone: CONTACT.phone,
     email: CONTACT.email,
     address: {
@@ -24,13 +25,7 @@ export function LocalBusinessSchema({
       addressLocality: "Fort Lauderdale",
       addressCountry: "US",
     },
-    areaServed: [
-      "Fort Lauderdale",
-      "Miami",
-      "Boca Raton",
-      "Coral Gables",
-      "Hollywood",
-    ],
+    areaServed: CITIES.map((c) => c.name),
     priceRange: "$$",
     openingHours: CONTACT.hours,
     ...(serviceName &&
@@ -86,18 +81,22 @@ export function FAQSchema({
   );
 }
 
+const DEFAULT_PUBLISHER_LOGO = `${SITE.url}/images/hero-renovation.jpg`;
+
 export function ArticleSchema({
   title,
   description,
   datePublished,
   author,
   url,
+  image,
 }: {
   title: string;
   description: string;
   datePublished: string;
   author: string;
   url: string;
+  image?: string;
 }) {
   const schema = {
     "@context": "https://schema.org",
@@ -112,8 +111,10 @@ export function ArticleSchema({
     publisher: {
       "@type": "Organization",
       name: SITE.name,
+      image: DEFAULT_PUBLISHER_LOGO,
     },
     url,
+    ...(image && { image: image.startsWith("http") ? image : `${SITE.url}${image}` }),
   };
 
   return (
