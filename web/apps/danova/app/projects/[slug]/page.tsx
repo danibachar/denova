@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { BreadcrumbSchema } from "@/components/shared/StructuredData";
 import { PROJECTS, getProjectBySlug } from "@/lib/content/projects";
 import { SITE } from "@/lib/constants";
 
@@ -38,6 +39,13 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
   return (
     <div className="px-4 py-16 md:py-24">
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Projects", url: `${SITE.url}/projects` },
+          { name: project.title, url: `${SITE.url}/projects/${slug}` },
+        ]}
+      />
       <div className="container mx-auto max-w-5xl">
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">
           {project.category}

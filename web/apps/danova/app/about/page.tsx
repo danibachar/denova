@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { FAQSchema, BreadcrumbSchema, WebPageSchema } from "@/components/shared/StructuredData";
 import { SITE, CONTACT, TRUST_BADGES } from "@/lib/constants";
 import { Check } from "lucide-react";
 
@@ -41,6 +42,19 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="px-4 py-16 md:py-24">
+      <WebPageSchema
+        type="AboutPage"
+        name="About Us"
+        url={`${SITE.url}/about`}
+        description="Danova Renovations is a family-run business providing high-quality paint, flooring, and renovation solutions in Fort Lauderdale and Miami."
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "About Us", url: `${SITE.url}/about` },
+        ]}
+      />
+      <FAQSchema faqs={ABOUT_FAQ} />
       <div className="container mx-auto max-w-4xl">
         <h1 className="font-serif text-3xl font-bold md:text-4xl">
           About {SITE.name}

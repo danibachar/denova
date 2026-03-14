@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { BreadcrumbSchema } from "@/components/shared/StructuredData";
 import { CITIES, ALL_SERVICES, SITE } from "@/lib/constants";
 
 export async function generateStaticParams() {
@@ -40,6 +41,13 @@ export default async function CityPage({
 
   return (
     <div className="px-4 py-16 md:py-24">
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Service Area", url: `${SITE.url}/service-area` },
+          { name: cityData.name, url: `${SITE.url}/service-area/${city}` },
+        ]}
+      />
       <div className="container mx-auto max-w-4xl">
         <h1 className="font-serif text-3xl font-bold md:text-4xl">
           Best Paint & Flooring in {cityData.name}

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { BLOG_POSTS } from "@/lib/content/blog";
 import { BLOG_POST_CONTENT } from "@/lib/content/blog-posts";
-import { ArticleSchema } from "@/components/shared/StructuredData";
+import { ArticleSchema, BreadcrumbSchema } from "@/components/shared/StructuredData";
 import { SITE } from "@/lib/constants";
 
 export async function generateStaticParams() {
@@ -69,6 +69,13 @@ export default async function BlogPostPage({
 
   return (
     <article className="px-4 py-16 md:py-24">
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Blog", url: `${SITE.url}/blog` },
+          { name: post.title, url: `${SITE.url}/blog/${slug}` },
+        ]}
+      />
       <ArticleSchema
         title={post.title}
         description={post.excerpt}
