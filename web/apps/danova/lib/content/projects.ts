@@ -5,67 +5,25 @@ export type Project = {
   category: "Interior Painting" | "Exterior Painting" | "Commercial" | "Flooring";
   scope: string;
   result: string;
+  image?: string;
+  gallery?: string[];
 };
 
 export const PROJECTS: Project[] = [
   {
-    slug: "victoria-park-home-refresh",
-    title: "Victoria Park Home Refresh",
-    location: "Fort Lauderdale, FL",
-    category: "Interior Painting",
-    scope:
-      "Full interior repaint for a 2-story home including walls, trim, and doors.",
-    result:
-      "Delivered a brighter modern palette and completed the project in 5 days with minimal disruption.",
-  },
-  {
-    slug: "miami-beach-condo-flooring",
-    title: "Miami Beach Condo Flooring Upgrade",
-    location: "Miami Beach, FL",
-    category: "Flooring",
-    scope:
-      "Removed dated laminate and installed new wide-plank waterproof flooring throughout the unit.",
-    result:
-      "Improved durability and visual continuity while keeping the condo move-in ready on schedule.",
-  },
-  {
-    slug: "coral-gables-exterior-repaint",
-    title: "Coral Gables Exterior Repaint",
-    location: "Coral Gables, FL",
-    category: "Exterior Painting",
-    scope:
-      "Exterior prep, crack repairs, priming, and weather-resistant paint application.",
-    result:
-      "Boosted curb appeal and added long-lasting weather protection ahead of storm season.",
-  },
-  {
-    slug: "downtown-miami-office-refresh",
-    title: "Downtown Miami Office Refresh",
+    slug: "luxury-condo-interior-painting",
+    title: "Luxury Condo Interior Painting",
     location: "Miami, FL",
-    category: "Commercial",
-    scope:
-      "After-hours repaint and touch-ups across reception, conference rooms, and shared spaces.",
-    result:
-      "Completed with zero business downtime and a clean, brand-aligned finish.",
-  },
-  {
-    slug: "weston-open-concept-makeover",
-    title: "Weston Open-Concept Makeover",
-    location: "Weston, FL",
     category: "Interior Painting",
     scope:
-      "Color consultation plus wall and ceiling repaint for kitchen, dining, and living zones.",
+      "Full prep-and-paint package in a large open-concept condo: protected cabinetry and flooring, detailed masking, ceiling and wall spraying, and precise touch-ups around recessed lighting and built-ins.",
     result:
-      "Created a cohesive open-plan look with durable, washable finishes for a family home.",
-  },
-  {
-    slug: "pompano-beach-rental-turnover",
-    title: "Pompano Beach Rental Turnover",
-    location: "Pompano Beach, FL",
-    category: "Flooring",
-    scope:
-      "Fast-turn flooring replacement and paint touch-ups between tenants.",
-    result:
-      "Turned the unit over within 72 hours, reducing vacancy time for the property owner.",
+      "Delivered a clean, modern white finish with smooth, even coverage across high ceilings and long sightlines, creating a bright high-end interior ready for final fixtures.",
+    image: "/images/projects/luxury-condo-interior/progress-1.jpg",
+    gallery: [
+      "/images/projects/luxury-condo-interior/progress-1.jpg",
+      "/images/projects/luxury-condo-interior/progress-2.jpg",
+      "/images/projects/luxury-condo-interior/progress-3.jpg",
+    ],
   },
 ];

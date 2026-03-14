@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { PROJECTS } from "@/lib/content/projects";
@@ -23,7 +24,18 @@ export function ProjectsPreview() {
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {featuredProjects.map((project) => (
-            <Card key={project.slug} className="h-full">
+            <Card key={project.slug} className="h-full overflow-hidden">
+              {project.image ? (
+                <div className="relative aspect-[4/3] bg-muted">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+              ) : null}
               <CardContent className="p-6">
                 <p className="text-xs font-semibold uppercase tracking-wide text-primary">
                   {project.category}
