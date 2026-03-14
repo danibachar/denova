@@ -7,8 +7,15 @@ import { PROJECTS } from "@/lib/content/projects";
 
 export const dynamic = "force-static";
 
+function latestBlogDate(): Date {
+  if (BLOG_POSTS.length === 0) return new Date();
+  const dates = BLOG_POSTS.map((p) => new Date(p.date).getTime());
+  return new Date(Math.max(...dates));
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE.url;
+  const blogLastMod = latestBlogDate();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
@@ -16,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/service-area`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/projects`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/blog`, lastModified: blogLastMod, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/estimate`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },

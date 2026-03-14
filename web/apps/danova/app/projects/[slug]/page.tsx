@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps) {
   }
 
   return {
+    alternates: { canonical: `${SITE.url}/projects/${slug}` },
     title: project.title,
     description: `${project.title} in ${project.location}. ${project.result}`,
   };

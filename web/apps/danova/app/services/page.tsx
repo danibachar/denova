@@ -23,9 +23,22 @@ const iconMap = {
 };
 
 export const metadata = {
+  alternates: { canonical: "https://danovarenovations.com/services" },
   title: "Our Services",
   description:
     "Professional paint, flooring, and renovation services in Fort Lauderdale and Miami. Interior, exterior, commercial painting. Flooring installation. Popcorn ceiling removal, wallpaper removal, drywall repair.",
+  openGraph: {
+    title: "Our Services | Danova Renovations",
+    description:
+      "Professional paint, flooring, and renovation services in Fort Lauderdale and Miami. Interior, exterior, commercial painting. Flooring installation. Popcorn ceiling removal, wallpaper removal, drywall repair.",
+    images: ["/images/hero-renovation.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Services | Danova Renovations",
+    description:
+      "Professional paint, flooring, and renovation services in Fort Lauderdale and Miami. Interior, exterior, commercial painting. Flooring installation. Popcorn ceiling removal, wallpaper removal, drywall repair.",
+  },
 };
 
 export default function ServicesPage() {

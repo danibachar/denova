@@ -7,10 +7,19 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const LEAD_SITE_URL = "https://lead.danovarenovations.com/";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(LEAD_SITE_URL),
   title: "Get a Free Quote | Danova Renovations",
   description:
     "Tell us about your paint or flooring project. We'll get back within 24 hours.",
+  openGraph: {
+    title: "Get a Free Quote | Danova Renovations",
+    description:
+      "Tell us about your paint or flooring project. We'll get back within 24 hours.",
+    images: ["https://danovarenovations.com/images/hero-renovation.jpg"],
+  },
 };
 
 export default function RootLayout({

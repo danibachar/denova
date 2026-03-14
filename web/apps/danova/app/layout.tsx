@@ -44,6 +44,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
+    images: ["/images/hero-renovation.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Danova Renovations | Best Paint & Flooring in Fort Lauderdale & Miami",
+    description:
+      "Premium paint, flooring, and renovation services in Fort Lauderdale and Miami. Interior, exterior, commercial painting. Hardwood, tile, laminate flooring. Licensed & insured.",
   },
   robots: {
     index: true,
@@ -66,6 +73,8 @@ export default function RootLayout({
           href="https://danovarenovations.com/.well-known/llm-index.json"
           title="LLM Index"
         />
+        <meta name="geo.region" content="US-FL" />
+        <meta name="geo.placename" content="Fort Lauderdale" />
       </head>
       <body
         className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased`}
