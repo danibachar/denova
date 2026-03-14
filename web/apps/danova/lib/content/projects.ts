@@ -7,6 +7,9 @@ export type Project = {
   result: string;
   image?: string;
   gallery?: string[];
+  overview: string;
+  highlights: string[];
+  timeline: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -25,5 +28,18 @@ export const PROJECTS: Project[] = [
       "/images/projects/luxury-condo-interior/progress-2.jpg",
       "/images/projects/luxury-condo-interior/progress-3.jpg",
     ],
+    overview:
+      "This project involved repainting a high-end Miami condo with an open layout, large window exposures, and multiple ceiling details. The objective was to deliver a premium white finish while protecting completed cabinetry and flooring during active construction.",
+    highlights: [
+      "Extensive masking and surface protection for millwork and floors",
+      "Uniform white finish across broad wall runs and recessed ceilings",
+      "Detailed cut lines around lighting points and architectural transitions",
+      "Coordinated sequencing to keep trades moving with minimal rework",
+    ],
+    timeline: "Multi-day phased interior painting in coordination with final fit-out",
   },
 ];
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return PROJECTS.find((project) => project.slug === slug);
+}

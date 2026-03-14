@@ -3,6 +3,7 @@ import { SITE } from "@/lib/constants";
 import { CITIES } from "@/lib/constants";
 import { BLOG_POSTS } from "@/lib/content/blog";
 import { SERVICE_DETAILS } from "@/lib/content/services";
+import { PROJECTS } from "@/lib/content/projects";
 
 export const dynamic = "force-static";
 
@@ -45,5 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...servicePages, ...cityPages, ...blogPages];
+  const projectPages: MetadataRoute.Sitemap = PROJECTS.map((project) => ({
+    url: `${baseUrl}/projects/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...servicePages, ...cityPages, ...blogPages, ...projectPages];
 }

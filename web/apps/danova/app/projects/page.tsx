@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { PROJECTS } from "@/lib/content/projects";
 
@@ -50,21 +51,12 @@ export default function ProjectsPage() {
                   </p>
                 </div>
 
-                {project.gallery && project.gallery.length > 1 ? (
-                  <div className="mt-4 grid grid-cols-3 gap-2">
-                    {project.gallery.slice(0, 3).map((img) => (
-                      <div key={img} className="relative aspect-[4/3] overflow-hidden rounded-md bg-muted">
-                        <Image
-                          src={img}
-                          alt={`${project.title} progress photo`}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 30vw, 15vw"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="mt-5 inline-block font-medium text-primary hover:underline"
+                >
+                  View project details →
+                </Link>
               </CardContent>
             </Card>
           ))}
