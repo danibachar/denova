@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CITIES } from "@/lib/constants";
-import { ALL_SERVICES } from "@/lib/constants";
+import { CITIES, ALL_SERVICES, SITE } from "@/lib/constants";
 
 export async function generateStaticParams() {
   return CITIES.map((city) => ({ city: city.slug }));
@@ -16,9 +15,17 @@ export async function generateMetadata({
   const { city } = await params;
   const cityData = CITIES.find((c) => c.slug === city);
   if (!cityData) return {};
+  const title = `Best Paint & Flooring in ${cityData.name} | Danova Renovations`;
+  const description = `Professional paint, flooring, and renovation services in ${cityData.name}, Florida. Interior, exterior, commercial painting. Flooring installation. Licensed & insured.`;
   return {
-    title: `Best Paint & Flooring in ${cityData.name} | Danova Renovations`,
-    description: `Professional paint, flooring, and renovation services in ${cityData.name}, Florida. Interior, exterior, commercial painting. Flooring installation. Licensed & insured.`,
+    alternates: { canonical: `${SITE.url}/service-area/${city}` },
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [`${SITE.url}/images/hero-renovation.jpg`],
+    },
   };
 }
 

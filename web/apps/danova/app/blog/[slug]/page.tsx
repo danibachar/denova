@@ -21,12 +21,20 @@ export async function generateMetadata({
   if (!post) return {};
   const postMeta = BLOG_POSTS.find((item) => item.slug === slug);
   return {
+    alternates: { canonical: `${SITE.url}/blog/${slug}` },
     title: post.title,
     description: post.excerpt,
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: postMeta?.image ? [`${SITE.url}${postMeta.image}`] : undefined,
+      images: postMeta?.image
+        ? [`${SITE.url}${postMeta.image}`]
+        : [`${SITE.url}/images/hero-renovation.jpg`],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
     },
   };
 }
@@ -67,6 +75,7 @@ export default async function BlogPostPage({
         datePublished={post.date}
         author={post.author}
         url={`${SITE.url}/blog/${slug}`}
+        image={postMeta?.image}
       />
       <div className="container mx-auto max-w-2xl">
         <Link

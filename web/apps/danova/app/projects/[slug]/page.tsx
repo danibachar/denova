@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PROJECTS, getProjectBySlug } from "@/lib/content/projects";
+import { SITE } from "@/lib/constants";
 
 type ProjectDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -21,6 +22,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps) {
   }
 
   return {
+    alternates: { canonical: `${SITE.url}/projects/${slug}` },
     title: project.title,
     description: `${project.title} in ${project.location}. ${project.result}`,
   };

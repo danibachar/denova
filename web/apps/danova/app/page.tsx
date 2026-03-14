@@ -1,6 +1,11 @@
 import { Hero } from "@/components/home/Hero";
 import { FAQSchema } from "@/components/shared/StructuredData";
 import { HOME_FAQ } from "@/lib/content/faq";
+import { SITE } from "@/lib/constants";
+
+export const metadata = {
+  alternates: { canonical: SITE.url },
+};
 import { Stats } from "@/components/home/Stats";
 import { ServicesGrid } from "@/components/home/ServicesGrid";
 import { Process } from "@/components/home/Process";
