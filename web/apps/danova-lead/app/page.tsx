@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { isValidZip } from "@/components/StepAddress";
+import { submitLead } from "@/lib/lead";
 import type { FormState, LeadPayload, ProjectType, UtmParams } from "./types";
 
 const MAIN_SITE_URL = "https://danovarenovations.com";
@@ -85,13 +86,31 @@ export default function LeadPage() {
   }, [form]);
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!isRequiredFieldsValid(form)) return;
       setStatus("sending");
       const payload = buildPayload();
-      console.log("Lead payload:", payload);
-      setTimeout(() => setStatus("sent"), 600);
+      const utmObj =
+        payload.utm && (payload.utm.utm_source || payload.utm.utm_medium || payload.utm.utm_campaign)
+          ? { ...payload.utm }
+          : undefined;
+      try {
+        const ok = await submitLead({
+          source: "lead",
+          name: payload.name,
+          phone: payload.phone,
+          projectType: payload.projectType,
+          zip: payload.zip,
+          ...(payload.addressOptional && { addressOptional: payload.addressOptional }),
+          ...(payload.email && { email: payload.email }),
+          ...(payload.scope && { scope: payload.scope }),
+          ...(utmObj && { utm: utmObj as Record<string, string> }),
+        });
+        setStatus(ok ? "sent" : "error");
+      } catch {
+        setStatus("error");
+      }
     },
     [form, buildPayload]
   );
@@ -273,6 +292,11 @@ export default function LeadPage() {
           />
         </div>
 
+        {status === "error" && (
+          <p className="text-sm text-destructive">
+            Something went wrong. Please try again.
+          </p>
+        )}
         <button
           type="submit"
           disabled={!canSubmit}

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CONTACT } from "@/lib/constants";
+import { submitLead } from "@/lib/lead";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
@@ -14,22 +15,18 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formId = process.env.NEXT_PUBLIC_FORMSPREE_CONTACT_ID;
-    if (!formId) {
-      setStatus("error");
-      return;
-    }
     setStatus("sending");
     const form = e.currentTarget;
-    const body = Object.fromEntries(new FormData(form).entries());
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
     try {
-      const res = await fetch(`https://formspree.io/f/${formId}`, {
-        method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+      const ok = await submitLead({
+        source: "contact",
+        name: (data.name ?? "").trim(),
+        phone: (data.phone ?? "").trim(),
+        email: (data.email ?? "").trim() || undefined,
+        message: (data.message ?? "").trim() || undefined,
       });
-      if (res.ok) setStatus("sent");
-      else setStatus("error");
+      setStatus(ok ? "sent" : "error");
     } catch {
       setStatus("error");
     }
@@ -115,6 +112,7 @@ export default function ContactPage() {
                   id="phone"
                   name="phone"
                   type="tel"
+                  required
                   placeholder="(555) 555-5555"
                   className="mt-2"
                 />
