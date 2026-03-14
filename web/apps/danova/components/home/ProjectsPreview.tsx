@@ -24,27 +24,29 @@ export function ProjectsPreview() {
 
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {featuredProjects.map((project) => (
-            <Card key={project.slug} className="h-full overflow-hidden">
-              {project.image ? (
-                <div className="relative aspect-[4/3] bg-muted">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
-              ) : null}
-              <CardContent className="p-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                  {project.category}
-                </p>
-                <h3 className="mt-2 font-serif text-xl font-semibold">{project.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{project.location}</p>
-                <p className="mt-4 text-sm text-muted-foreground">{project.scope}</p>
-              </CardContent>
-            </Card>
+            <Link key={project.slug} href={`/projects/${project.slug}`} className="group block">
+              <Card className="h-full overflow-hidden transition-colors group-hover:border-primary/50">
+                {project.image ? (
+                  <div className="relative aspect-[4/3] bg-muted">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                ) : null}
+                <CardContent className="p-6">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                    {project.category}
+                  </p>
+                  <h3 className="mt-2 font-serif text-xl font-semibold">{project.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{project.location}</p>
+                  <p className="mt-4 text-sm text-muted-foreground">{project.scope}</p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 

@@ -21,44 +21,43 @@ export default function ProjectsPage() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {PROJECTS.map((project) => (
-            <Card key={project.slug} className="h-full overflow-hidden">
-              {project.image ? (
-                <div className="relative aspect-[16/10] bg-muted">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              ) : null}
-              <CardContent className="p-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                  {project.category}
-                </p>
-                <h2 className="mt-2 font-serif text-2xl font-semibold">{project.title}</h2>
-                <p className="mt-1 text-sm text-muted-foreground">{project.location}</p>
-
-                <div className="mt-4 space-y-3 text-sm text-muted-foreground">
-                  <p>
-                    <span className="font-semibold text-foreground">Scope: </span>
-                    {project.scope}
+            <Link key={project.slug} href={`/projects/${project.slug}`} className="group block">
+              <Card className="h-full overflow-hidden transition-colors group-hover:border-primary/50">
+                {project.image ? (
+                  <div className="relative aspect-[16/10] bg-muted">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                ) : null}
+                <CardContent className="p-6">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                    {project.category}
                   </p>
-                  <p>
-                    <span className="font-semibold text-foreground">Result: </span>
-                    {project.result}
-                  </p>
-                </div>
+                  <h2 className="mt-2 font-serif text-2xl font-semibold">{project.title}</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">{project.location}</p>
 
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="mt-5 inline-block font-medium text-primary hover:underline"
-                >
-                  View project details →
-                </Link>
-              </CardContent>
-            </Card>
+                  <div className="mt-4 space-y-3 text-sm text-muted-foreground">
+                    <p>
+                      <span className="font-semibold text-foreground">Scope: </span>
+                      {project.scope}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-foreground">Result: </span>
+                      {project.result}
+                    </p>
+                  </div>
+
+                  <span className="mt-5 inline-block font-medium text-primary group-hover:underline">
+                    View project details →
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
