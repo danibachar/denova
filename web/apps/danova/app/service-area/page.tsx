@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CITIES } from "@/lib/constants";
+import { BreadcrumbSchema } from "@/components/shared/StructuredData";
+import { CITIES, SITE } from "@/lib/constants";
 
 export const metadata = {
   title: "Service Area | Fort Lauderdale, Miami & South Florida",
@@ -10,6 +11,12 @@ export const metadata = {
 export default function ServiceAreaPage() {
   return (
     <div className="px-4 py-16 md:py-24">
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Service Area", url: `${SITE.url}/service-area` },
+        ]}
+      />
       <div className="container mx-auto max-w-4xl">
         <h1 className="font-serif text-3xl font-bold md:text-4xl">
           Proudly Serving South Florida

@@ -1,0 +1,441 @@
+{
+  "@context": [
+    "https://schema.org",
+    "https://llmld.org/v1"
+  ],
+  "@type": "llmld:AIWebsite",
+  "@id": "https://danovarenovations.com/.well-known/llm-index.json",
+  "llmld:meta": {
+    "version": "1.0",
+    "generated": "2026-03-14T02:32:58.155Z",
+    "generator": "danova/scripts/generate-llm-index.ts",
+    "refresh_interval": "weekly",
+    "language": "en-US"
+  },
+  "llmld:site": {
+    "name": "Danova Renovations",
+    "type": "Business",
+    "industry": [
+      "Home Services",
+      "Renovation",
+      "Painting",
+      "Flooring"
+    ],
+    "description": "Danova Renovations delivers designer-grade paint, flooring, and renovation services across Fort Lauderdale and Miami. Interior, exterior, commercial painting, flooring installation, and drywall repair.",
+    "tagline": "Premium Renovations — Paint & Flooring Done Right",
+    "domains": {
+      "primary": "https://danovarenovations.com",
+      "app": "https://danova-lead.pages.dev"
+    },
+    "location": {
+      "headquarters": {
+        "@type": "PostalAddress",
+        "addressLocality": "Fort Lauderdale",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "service_area": "Serving Fort Lauderdale, Miami, and surrounding areas",
+      "primary_markets": [
+        "US"
+      ]
+    },
+    "social": {
+      "instagram": "https://instagram.com/danovarenovations",
+      "facebook": "https://facebook.com/danovarenovations",
+      "pinterest": "https://pinterest.com/danovarenovations"
+    }
+  },
+  "llmld:primaryEntity": {
+    "@id": "#organization",
+    "@type": "LocalBusiness",
+    "name": "Danova Renovations",
+    "description": "Danova Renovations delivers designer-grade paint, flooring, and renovation services across Fort Lauderdale and Miami. Interior, exterior, commercial painting, flooring installation, and drywall repair.",
+    "url": "https://danovarenovations.com",
+    "telephone": "(754) 222-1485",
+    "email": "info@danovarenovations.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Fort Lauderdale",
+      "addressRegion": "FL",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      "Fort Lauderdale",
+      "Miami",
+      "Boca Raton",
+      "Coral Gables",
+      "Hollywood",
+      "Pompano Beach",
+      "Miami Beach",
+      "Weston"
+    ],
+    "priceRange": "$$",
+    "openingHours": "Monday – Friday: 9:00 AM – 5:00 PM"
+  },
+  "llmld:summary": {
+    "one_liner": "Premium paint, flooring, and renovation services in Fort Lauderdale and Miami.",
+    "paragraph": "Danova Renovations delivers designer-grade paint, flooring, and renovation services across Fort Lauderdale and Miami. Interior, exterior, commercial painting, flooring installation, and drywall repair. We serve homeowners and commercial clients across South Florida with interior and exterior painting, flooring installation, popcorn ceiling removal, wallpaper removal, and drywall repair. Licensed, insured, and EPA Lead-Safe certified.",
+    "key_facts": [
+      "Licensed & Insured",
+      "EPA Lead-Safe certified",
+      "Serves 8 cities across South Florida",
+      "Interior, exterior, and commercial painting",
+      "Flooring installation (hardwood, tile, laminate)",
+      "Popcorn ceiling removal, wallpaper removal, drywall repair",
+      "Free estimates, transparent pricing",
+      "Licensed & Insured",
+      "EPA Lead-Safe",
+      "Warranty Included",
+      "Flexible Scheduling",
+      "Eco-friendly Options"
+    ],
+    "differentiators": [
+      "Designer-grade finishes and materials",
+      "South Florida weather expertise (humidity, storms)",
+      "After-hours and flexible scheduling for commercial",
+      "Family-run with personal touch"
+    ],
+    "target_customers": [
+      "Homeowners in Fort Lauderdale and Miami",
+      "Commercial property managers",
+      "Real estate investors",
+      "Businesses needing office or retail painting"
+    ]
+  },
+  "llmld:pages": [
+    {
+      "path": "/",
+      "title": "Danova Renovations | Best Paint & Flooring in Fort Lauderdale & Miami",
+      "type": "homepage",
+      "url": "https://danovarenovations.com",
+      "description": "Home page"
+    },
+    {
+      "path": "/services",
+      "title": "Our Services",
+      "type": "listing",
+      "url": "https://danovarenovations.com/services",
+      "children": [
+        "/services/interior-painting",
+        "/services/exterior-painting",
+        "/services/commercial-painting",
+        "/services/flooring",
+        "/services/popcorn-ceiling-removal",
+        "/services/wallpaper-removal",
+        "/services/drywall-repair"
+      ]
+    },
+    {
+      "path": "/services/interior-painting",
+      "title": "Interior Painting Service | Fort Lauderdale & Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/services/interior-painting",
+      "description": "Give every space a clean, modern look with our detail-focused interior painting service. From prep to final walkthrough, we protect your space, respect your time, and deliver smooth, long-lasting finishes."
+    },
+    {
+      "path": "/services/exterior-painting",
+      "title": "Exterior Painting Service | Fort Lauderdale & Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/services/exterior-painting",
+      "description": "Storm-ready prep, elastomeric caulking, and premium finishes that resist Florida weather. Our exterior painting service ensures your home looks great and stays protected."
+    },
+    {
+      "path": "/services/commercial-painting",
+      "title": "Commercial Painting Service | Fort Lauderdale & Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/services/commercial-painting",
+      "description": "After-hours scheduling, dust control, and rapid-cure coatings to minimize downtime. We keep your business running while we transform your space."
+    },
+    {
+      "path": "/services/flooring",
+      "title": "Flooring Installation | Hardwood, Tile, Laminate | Fort Lauderdale & Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/services/flooring",
+      "description": "Hardwood, tile, laminate, and luxury vinyl plank—we install it all with precision and care. From removal to finishing, we handle every step."
+    },
+    {
+      "path": "/services/popcorn-ceiling-removal",
+      "title": "Popcorn Ceiling Removal | Fort Lauderdale & Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/services/popcorn-ceiling-removal",
+      "description": "Safe removal, re-skim, and flawless texture matching. We protect your space, test for lead/asbestos where required, and leave you with smooth, modern ceilings."
+    },
+    {
+      "path": "/services/wallpaper-removal",
+      "title": "Wallpaper Removal Service | Fort Lauderdale & Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/services/wallpaper-removal",
+      "description": "We safely remove old wallpaper, smooth the surface, and prep your walls for a flawless new finish—whether you're painting or applying new wallpaper."
+    },
+    {
+      "path": "/services/drywall-repair",
+      "title": "Drywall Repair Service | Fort Lauderdale & Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/services/drywall-repair",
+      "description": "Cracks, water damage, and texture blending handled before the first coat of paint. We make your walls smooth and ready for a flawless finish."
+    },
+    {
+      "path": "/service-area",
+      "title": "Service Area",
+      "type": "listing",
+      "url": "https://danovarenovations.com/service-area",
+      "children": [
+        "/service-area/fort-lauderdale",
+        "/service-area/miami",
+        "/service-area/boca-raton",
+        "/service-area/coral-gables",
+        "/service-area/hollywood-fl",
+        "/service-area/pompano-beach",
+        "/service-area/miami-beach",
+        "/service-area/weston-fl"
+      ]
+    },
+    {
+      "path": "/service-area/fort-lauderdale",
+      "title": "Best Paint & Flooring in Fort Lauderdale",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/fort-lauderdale"
+    },
+    {
+      "path": "/service-area/miami",
+      "title": "Best Paint & Flooring in Miami",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/miami"
+    },
+    {
+      "path": "/service-area/boca-raton",
+      "title": "Best Paint & Flooring in Boca Raton",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/boca-raton"
+    },
+    {
+      "path": "/service-area/coral-gables",
+      "title": "Best Paint & Flooring in Coral Gables",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/coral-gables"
+    },
+    {
+      "path": "/service-area/hollywood-fl",
+      "title": "Best Paint & Flooring in Hollywood",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/hollywood-fl"
+    },
+    {
+      "path": "/service-area/pompano-beach",
+      "title": "Best Paint & Flooring in Pompano Beach",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/pompano-beach"
+    },
+    {
+      "path": "/service-area/miami-beach",
+      "title": "Best Paint & Flooring in Miami Beach",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/miami-beach"
+    },
+    {
+      "path": "/service-area/weston-fl",
+      "title": "Best Paint & Flooring in Weston",
+      "type": "service",
+      "url": "https://danovarenovations.com/service-area/weston-fl"
+    },
+    {
+      "path": "/about",
+      "title": "About Us",
+      "type": "about",
+      "url": "https://danovarenovations.com/about"
+    },
+    {
+      "path": "/contact",
+      "title": "Contact Us",
+      "type": "contact",
+      "url": "https://danovarenovations.com/contact"
+    },
+    {
+      "path": "/estimate",
+      "title": "Get a Free Estimate",
+      "type": "form",
+      "url": "https://danovarenovations.com/estimate",
+      "description": "Request a free quote for paint or flooring"
+    },
+    {
+      "path": "/blog",
+      "title": "Blog",
+      "type": "listing",
+      "url": "https://danovarenovations.com/blog",
+      "children": [
+        "/blog/why-hiring-renovation-pros-in-winter-is-a-pro-move",
+        "/blog/how-lighting-affects-paint-color",
+        "/blog/5-renovation-questions-customers-ask",
+        "/blog/flooring-materials-guide",
+        "/blog/preparing-your-home-for-painters",
+        "/blog/exterior-paint-maintenance-tips",
+        "/blog/best-paint-colors-increase-home-value",
+        "/blog/popcorn-ceiling-alternatives"
+      ]
+    },
+    {
+      "path": "/blog/why-hiring-renovation-pros-in-winter-is-a-pro-move",
+      "title": "Why Hiring a Renovation Pro in Winter is a Pro Move",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/why-hiring-renovation-pros-in-winter-is-a-pro-move",
+      "description": "Most homeowners in South Florida circle the same dates on their calendars for home improvement: March through June. There's a common myth that once the holidays pass, renovation season is over—but that's not true.",
+      "lastmod": "2025-12-15"
+    },
+    {
+      "path": "/blog/how-lighting-affects-paint-color",
+      "title": "How Lighting Affects Paint Color: What Homeowners Need to Know Before Hiring Quality Painters",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/how-lighting-affects-paint-color",
+      "description": "Choosing a paint color is hard enough but did you know that the lighting in your space can completely change how that color appears on your walls?",
+      "lastmod": "2025-11-07"
+    },
+    {
+      "path": "/blog/5-renovation-questions-customers-ask",
+      "title": "5 Under-the-Radar Renovation Questions Fort Lauderdale Customers Ask (That Most Blogs Don't Answer)",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/5-renovation-questions-customers-ask",
+      "description": "Planning a renovation shouldn't feel like guesswork. At Danova Renovations, we hear the same thoughtful, harder questions from homeowners who want beautiful results.",
+      "lastmod": "2025-10-27"
+    },
+    {
+      "path": "/blog/flooring-materials-guide",
+      "title": "Hardwood vs. Tile vs. Laminate: Choosing the Right Flooring for Your Home",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/flooring-materials-guide",
+      "description": "Your flooring choice affects comfort, durability, resale value, and daily maintenance. Here's a practical guide to help you choose.",
+      "lastmod": "2025-10-10"
+    },
+    {
+      "path": "/blog/preparing-your-home-for-painters",
+      "title": "How to Prepare Your Home Before the Painters Arrive",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/preparing-your-home-for-painters",
+      "description": "A little prep on your end can speed up the job, protect your belongings, and ensure a smoother experience for everyone.",
+      "lastmod": "2025-09-20"
+    },
+    {
+      "path": "/blog/exterior-paint-maintenance-tips",
+      "title": "Exterior Paint Maintenance: 5 Tips to Extend the Life of Your South Florida Home",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/exterior-paint-maintenance-tips",
+      "description": "Florida's sun, rain, and humidity can take a toll on exterior paint. Here's how to keep your home looking fresh year after year.",
+      "lastmod": "2025-09-05"
+    },
+    {
+      "path": "/blog/best-paint-colors-increase-home-value",
+      "title": "Best Paint Colors to Increase Your Home's Value in Fort Lauderdale",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/best-paint-colors-increase-home-value",
+      "description": "Planning to sell? These paint colors are proven to appeal to buyers and can help your home sell faster in the South Florida market.",
+      "lastmod": "2025-08-20"
+    },
+    {
+      "path": "/blog/popcorn-ceiling-alternatives",
+      "title": "Popcorn Ceiling Alternatives: Modern Options for Your South Florida Home",
+      "type": "article",
+      "url": "https://danovarenovations.com/blog/popcorn-ceiling-alternatives",
+      "description": "Tired of dated popcorn ceilings? Explore smooth, knockdown, and other modern texture options that add style without the upkeep.",
+      "lastmod": "2025-08-05"
+    },
+    {
+      "path": "/projects",
+      "title": "Projects",
+      "type": "listing",
+      "url": "https://danovarenovations.com/projects",
+      "children": [
+        "/projects/luxury-condo-interior-painting"
+      ]
+    },
+    {
+      "path": "/projects/luxury-condo-interior-painting",
+      "title": "Luxury Condo Interior Painting",
+      "type": "other",
+      "url": "https://danovarenovations.com/projects/luxury-condo-interior-painting"
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy Policy",
+      "type": "legal",
+      "url": "https://danovarenovations.com/privacy"
+    },
+    {
+      "path": "/terms",
+      "title": "Terms of Service",
+      "type": "legal",
+      "url": "https://danovarenovations.com/terms"
+    }
+  ],
+  "llmld:actions": {
+    "primary": [
+      {
+        "id": "estimate",
+        "name": "Get a Free Estimate",
+        "description": "Request a free quote for your paint or flooring project",
+        "url": "https://danovarenovations.com/estimate",
+        "type": "form",
+        "priority": 1
+      },
+      {
+        "id": "estimate-lead",
+        "name": "Get a Free Quote",
+        "description": "Quick quote form on lead capture app",
+        "url": "https://danova-lead.pages.dev",
+        "type": "form",
+        "priority": 2
+      },
+      {
+        "id": "contact",
+        "name": "Contact Us",
+        "description": "Phone, email, or contact form",
+        "url": "https://danovarenovations.com/contact",
+        "type": "contact",
+        "priority": 3
+      }
+    ],
+    "contact": [
+      {
+        "id": "phone",
+        "name": "Call",
+        "url": "tel:7542221485",
+        "type": "contact",
+        "channels": [
+          {
+            "type": "phone",
+            "value": "(754) 222-1485"
+          }
+        ]
+      },
+      {
+        "id": "email",
+        "name": "Email",
+        "type": "contact",
+        "channels": [
+          {
+            "type": "email",
+            "value": "info@danovarenovations.com"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "id": "services",
+        "name": "Our Services",
+        "url": "https://danovarenovations.com/services",
+        "type": "navigate"
+      },
+      {
+        "id": "blog",
+        "name": "Blog",
+        "url": "https://danovarenovations.com/blog",
+        "type": "navigate"
+      },
+      {
+        "id": "about",
+        "name": "About Us",
+        "url": "https://danovarenovations.com/about",
+        "type": "navigate"
+      }
+    ]
+  }
+}

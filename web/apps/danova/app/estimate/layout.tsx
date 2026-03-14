@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { BreadcrumbSchema, WebPageSchema } from "@/components/shared/StructuredData";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Get a Free Estimate",
@@ -11,5 +13,21 @@ export default function EstimateLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <WebPageSchema
+        type="WebPage"
+        name="Get a Free Estimate"
+        url={`${SITE.url}/estimate`}
+        description="Get a free estimate for your paint, flooring, or renovation project in Fort Lauderdale and Miami. Transparent pricing, no hidden fees."
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Get a Free Estimate", url: `${SITE.url}/estimate` },
+        ]}
+      />
+      {children}
+    </>
+  );
 }

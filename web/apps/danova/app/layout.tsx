@@ -3,7 +3,7 @@ import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { LocalBusinessSchema } from "@/components/shared/StructuredData";
+import { LocalBusinessSchema, WebSiteSchema } from "@/components/shared/StructuredData";
 import { GoogleAnalyticsProvider } from "@danova/analytics";
 
 const playfair = Playfair_Display({
@@ -59,11 +59,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="alternate"
+          type="application/json"
+          href="https://danovarenovations.com/.well-known/llm-index.json"
+          title="LLM Index"
+        />
+      </head>
       <body
         className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased`}
       >
         <GoogleAnalyticsProvider trackPageViews />
         <LocalBusinessSchema />
+        <WebSiteSchema />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

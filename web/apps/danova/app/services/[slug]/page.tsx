@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { ServiceDetailTemplate } from "@/components/shared/ServiceDetailTemplate";
+import { BreadcrumbSchema } from "@/components/shared/StructuredData";
 import { SERVICE_DETAILS } from "@/lib/content/services";
+import { SITE } from "@/lib/constants";
 
 const SLUGS = Object.keys(SERVICE_DETAILS);
 
@@ -35,5 +37,16 @@ export default async function ServicePage({
   const { slug } = await params;
   const service = SERVICE_DETAILS[slug];
   if (!service) notFound();
-  return <ServiceDetailTemplate service={service} />;
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Our Services", url: `${SITE.url}/services` },
+          { name: service.name, url: `${SITE.url}/services/${slug}` },
+        ]}
+      />
+      <ServiceDetailTemplate service={service} />
+    </>
+  );
 }

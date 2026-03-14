@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { FAQSchema } from "@/components/shared/StructuredData";
 import type { ServiceDetail } from "@/lib/content/services";
 
 interface ServiceDetailTemplateProps {
@@ -15,6 +16,9 @@ interface ServiceDetailTemplateProps {
 export function ServiceDetailTemplate({ service }: ServiceDetailTemplateProps) {
   return (
     <div className="px-4 py-12 md:py-16">
+      {service.faqs && service.faqs.length > 0 && (
+        <FAQSchema faqs={service.faqs} />
+      )}
       <div className="container mx-auto max-w-4xl">
         <h1 className="font-serif text-3xl font-bold md:text-4xl">
           {service.heroTitle}

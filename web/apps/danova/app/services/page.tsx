@@ -9,7 +9,8 @@ import {
   Hammer,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { SERVICES } from "@/lib/constants";
+import { BreadcrumbSchema } from "@/components/shared/StructuredData";
+import { SERVICES, SITE } from "@/lib/constants";
 
 const iconMap = {
   Paintbrush,
@@ -30,6 +31,12 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <div className="px-4 py-16 md:py-24">
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Our Services", url: `${SITE.url}/services` },
+        ]}
+      />
       <div className="container mx-auto">
         <h1 className="font-serif text-3xl font-bold md:text-4xl">
           Our Services

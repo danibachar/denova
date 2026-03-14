@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
+import { BreadcrumbSchema } from "@/components/shared/StructuredData";
 import { BLOG_POSTS } from "@/lib/content/blog";
+import { SITE } from "@/lib/constants";
 
 export const metadata = {
   title: "Blog",
@@ -12,6 +14,12 @@ export const metadata = {
 export default function BlogPage() {
   return (
     <div className="px-4 py-16 md:py-24">
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: SITE.url },
+          { name: "Blog", url: `${SITE.url}/blog` },
+        ]}
+      />
       <div className="container mx-auto max-w-4xl">
         <h1 className="font-serif text-3xl font-bold md:text-4xl">
           From Our Blog
