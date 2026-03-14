@@ -9,6 +9,7 @@ import { ServiceArea } from "@/components/home/ServiceArea";
 import { FaqSection } from "@/components/home/FaqSection";
 import { BlogPreview } from "@/components/home/BlogPreview";
 import { FooterCta } from "@/components/home/FooterCta";
+import { ProjectsPreview } from "@/components/home/ProjectsPreview";
 
 const Testimonials = dynamic(
   () => import("@/components/home/Testimonials").then((m) => m.Testimonials),
@@ -38,6 +39,7 @@ export default function HomePage() {
       <ServicesGrid />
       <Process />
       <Testimonials />
+      <ProjectsPreview />
       <ServiceArea />
       <FaqSection />
       <BlogPreview />
